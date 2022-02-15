@@ -17,12 +17,12 @@ select 1 as id
 @pytest.fixture
 def models():
     return {
-        'descendant.sql': descendant_sql,
-        'model.sql': model_sql,
+        "descendant.sql": descendant_sql,
+        "model.sql": model_sql,
     }
 
 
 def test_undefined_value(project):
     # Tests that a project with an invalid reference fails
     with pytest.raises(CompilationException):
-        run_dbt(['compile'])
+        run_dbt(["compile"])

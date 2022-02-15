@@ -6,14 +6,14 @@ from dbt.tests.util import run_dbt
 
 @pytest.fixture
 def project_config_update():
-    return {'seeds': {'quote_columns': False}}
+    return {"seeds": {"quote_columns": False}}
 
 
 @pytest.fixture
 def seeds():
-    return {'data.csv': 'a,b\n1,hello\n2,goodbye'}
+    return {"data.csv": "a,b\n1,hello\n2,goodbye"}
 
 
 def test_simple_seed(project):
-    results = run_dbt(['seed'])
+    results = run_dbt(["seed"])
     assert len(results) == 1

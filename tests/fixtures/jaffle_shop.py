@@ -344,7 +344,7 @@ select * from renamed
 # models/staging/stg_payments.sql
 staging_stg_payments_sql = """
 with source as (
-    
+
     {#-
     Normally we would select from the table here, but we are using seeds to load
     our data in this project
@@ -370,6 +370,7 @@ renamed as (
 select * from renamed
 """
 
+
 @pytest.fixture
 def models():
     return {
@@ -383,7 +384,7 @@ def models():
             "stg_customers.sql": staging_stg_customers_sql,
             "stg_orders.sql": staging_stg_orders_sql,
             "stg_payments.sql": staging_stg_payments_sql,
-        }
+        },
     }
 
 
@@ -392,9 +393,9 @@ def seeds():
     # Read seed file and return
     seeds = {}
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    for file_name in ('raw_customers.csv', 'raw_orders.csv', 'raw_payments.csv'):
-        path = os.path.join(dir_path, 'jaffle_shop_data', file_name)
-        with open(path, 'rb') as fp:
+    for file_name in ("raw_customers.csv", "raw_orders.csv", "raw_payments.csv"):
+        path = os.path.join(dir_path, "jaffle_shop_data", file_name)
+        with open(path, "rb") as fp:
             seeds[file_name] = fp.read()
     return seeds
 
@@ -408,7 +409,7 @@ def project_config_update():
                 "materialized": "table",
                 "staging": {
                     "materialized": "view",
-                }
+                },
             }
-        }
+        },
     }

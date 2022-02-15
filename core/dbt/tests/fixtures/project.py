@@ -108,7 +108,7 @@ def dbt_project_yml(project_root, project_config_update, logs_dir):
         "name": "test",
         "version": "0.1.0",
         "profile": "test",
-        "log-path": logs_dir
+        "log-path": logs_dir,
     }
     if project_config_update:
         project_config.update(project_config_update)
@@ -240,14 +240,11 @@ def project_files(project_root, models, macros, snapshots, seeds, tests):
 def logs_dir(request):
     # create a directory name that will be unique per test session
     _randint = random.randint(0, 9999)
-    _runtime_timedelta = (datetime.utcnow() - datetime(1970, 1, 1, 0, 0, 0))
-    _runtime = (
-        (int(_runtime_timedelta.total_seconds() * 1e6)) +
-        _runtime_timedelta.microseconds
-    )
-    prefix = f'test{_runtime}{_randint:04}'
+    _runtime_timedelta = datetime.utcnow() - datetime(1970, 1, 1, 0, 0, 0)
+    _runtime = (int(_runtime_timedelta.total_seconds() * 1e6)) + _runtime_timedelta.microseconds
+    prefix = f"test{_runtime}{_randint:04}"
 
-    return os.path.join(request.config.rootdir, 'logs', prefix)
+    return os.path.join(request.config.rootdir, "logs", prefix)
 
 
 class TestProjInfo:

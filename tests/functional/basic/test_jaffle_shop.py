@@ -1,8 +1,7 @@
-import pytest
 from dbt.tests.util import run_dbt, get_manifest
 
 
-from tests.fixtures.jaffle_shop import models, seeds, project_config_update
+from tests.fixtures.jaffle_shop import models, seeds, project_config_update  # noqa: F401
 
 
 def test_basic(project):
@@ -13,3 +12,4 @@ def test_basic(project):
     results = run_dbt(["run"])
     assert len(results) == 5
     manifest = get_manifest(project.project_root)
+    assert "model.jaffle_shop.orders" in manifest.nodes

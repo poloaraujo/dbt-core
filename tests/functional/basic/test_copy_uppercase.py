@@ -25,26 +25,26 @@ select * from {{ ref('MATERIALIZED') }}
 @pytest.fixture
 def models():
     return {
-        'ADVANCED_INCREMENTAL.sql': advanced_incremental_sql,
-        'COMPOUND_SORT.sql': compound_sort_sql,
-        'DISABLED.sql': disabled_sql,
-        'EMPTY.sql': empty_sql,
-        'GET_AND_REF.sql': get_and_ref_sql,
-        'INCREMENTAL.sql': incremental_sql,
-        'INTERLEAVED_SORT.sql': interleaved_sort_sql,
-        'MATERIALIZED.sql': materialized_sql,
-        'SCHEMA.yml': schema_yml,
-        'VIEW_MODEL.sql': view_model_sql,
+        "ADVANCED_INCREMENTAL.sql": advanced_incremental_sql,
+        "COMPOUND_SORT.sql": compound_sort_sql,
+        "DISABLED.sql": disabled_sql,
+        "EMPTY.sql": empty_sql,
+        "GET_AND_REF.sql": get_and_ref_sql,
+        "INCREMENTAL.sql": incremental_sql,
+        "INTERLEAVED_SORT.sql": interleaved_sort_sql,
+        "MATERIALIZED.sql": materialized_sql,
+        "SCHEMA.yml": schema_yml,
+        "VIEW_MODEL.sql": view_model_sql,
     }
 
 
 @pytest.fixture
 def seeds(test_data_dir):
     # Read seed file and return
-    path = os.path.join(test_data_dir, 'seed-initial.csv')
-    with open(path, 'rb') as fp:
+    path = os.path.join(test_data_dir, "seed-initial.csv")
+    with open(path, "rb") as fp:
         seed_csv = fp.read()
-        return {'seed.csv': seed_csv}
+        return {"seed.csv": seed_csv}
     return {}
 
 

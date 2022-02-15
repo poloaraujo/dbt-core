@@ -130,32 +130,32 @@ select * from {{ ref('seed') }}
 @pytest.fixture
 def models():
     return {
-        'advanced_incremental.sql': advanced_incremental_sql,
-        'compound_sort.sql': compound_sort_sql,
-        'disabled.sql': disabled_sql,
-        'empty.sql': empty_sql,
-        'get_and_ref.sql': get_and_ref_sql,
-        'incremental.sql': incremental_sql,
-        'interleaved_sort.sql': interleaved_sort_sql,
-        'materialized.sql': materialized_sql,
-        'schema.yml': schema_yml,
-        'view_model.sql': view_model_sql,
+        "advanced_incremental.sql": advanced_incremental_sql,
+        "compound_sort.sql": compound_sort_sql,
+        "disabled.sql": disabled_sql,
+        "empty.sql": empty_sql,
+        "get_and_ref.sql": get_and_ref_sql,
+        "incremental.sql": incremental_sql,
+        "interleaved_sort.sql": interleaved_sort_sql,
+        "materialized.sql": materialized_sql,
+        "schema.yml": schema_yml,
+        "view_model.sql": view_model_sql,
     }
 
 
 @pytest.fixture
 def seeds(test_data_dir):
     # Read seed file and return
-    path = os.path.join(test_data_dir, 'seed-initial.csv')
-    with open(path, 'rb') as fp:
+    path = os.path.join(test_data_dir, "seed-initial.csv")
+    with open(path, "rb") as fp:
         seed_csv = fp.read()
-        return {'seed.csv': seed_csv}
+        return {"seed.csv": seed_csv}
     return {}
 
 
 @pytest.fixture
 def project_config_update():
-    return {'seeds': {'quote_columns': False}}
+    return {"seeds": {"quote_columns": False}}
 
 
 @pytest.mark.xfail
@@ -176,7 +176,7 @@ def test_simple_copy(project, test_data_dir):
     )
 
     # Change the seed.csv file and see if everything is the same, i.e. everything has been updated
-    copy_file(test_data_dir, 'seed-update.csv', project.project_root, ["seeds", "seed.csv"])
+    copy_file(test_data_dir, "seed-update.csv", project.project_root, ["seeds", "seed.csv"])
     results = run_dbt(["seed"])
     assert len(results) == 1
     results = run_dbt()
@@ -188,17 +188,17 @@ def test_simple_copy(project, test_data_dir):
 
 def test_simple_copy_with_materialized_views(project):
     run_sql(f"create table {project.test_schema}.unrelated_table (id int)", project.test_schema)
-    sql = f'''
+    sql = f"""
         create materialized view {project.test_schema}.unrelated_materialized_view as (
             select * from {project.test_schema}.unrelated_table
         )
-    '''
+    """
     run_sql(sql, project.test_schema)
-    sql = f'''
+    sql = f"""
         create view {project.test_schema}.unrelated_view as (
             select * from {project.test_schema}.unrelated_materialized_view
         )
-    '''
+    """
     run_sql(sql, project.test_schema)
     results = run_dbt(["seed"])
     assert len(results) == 1
@@ -214,5 +214,5 @@ def test_dbt_doesnt_run_empty_models(project):
 
     tables = get_tables_in_schema(project.test_schema)
 
-    assert 'empty' not in tables.keys()
-    assert 'disabled' not in tables.keys()
+    assert "empty" not in tables.keys()
+    assert "disabled" not in tables.keys()
