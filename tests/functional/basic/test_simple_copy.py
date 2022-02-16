@@ -158,7 +158,6 @@ def project_config_update():
     return {"seeds": {"quote_columns": False}}
 
 
-@pytest.mark.xfail
 def test_simple_copy(project, test_data_dir):
 
     # Load the seed file and check that it worked
