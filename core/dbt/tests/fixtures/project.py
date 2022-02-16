@@ -1,5 +1,5 @@
 import os
-import pytest
+import pytest  # type: ignore
 import random
 import time
 from argparse import Namespace

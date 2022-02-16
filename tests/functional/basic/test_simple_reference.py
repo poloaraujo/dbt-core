@@ -137,7 +137,7 @@ def project_config_update():
     }
 
 
-@pytest.fixture
+# I tried making this a fixture, but it wasn't running on every test for some reason
 def create_tables(test_data_dir, unique_schema):
     path = os.path.join(test_data_dir, "seed.sql")
     run_sql_file(path, unique_schema)
@@ -145,7 +145,8 @@ def create_tables(test_data_dir, unique_schema):
 
 # This test checks that with different materializations we get the right
 # tables copied or built.
-def test_simple_reference(project, create_tables):
+def test_simple_reference(project):
+    create_tables(project.test_data_dir, project.test_schema)
 
     # Now run dbt
     results = run_dbt()
@@ -185,7 +186,8 @@ def test_simple_reference(project, create_tables):
     table_comp.assert_tables_equal("summary_expected", "ephemeral_summary")
 
 
-def test_simple_reference_with_models(project, create_tables):
+def test_simple_reference_with_models(project):
+    create_tables(project.test_data_dir, project.test_schema)
 
     # Run materialized_copy, ephemeral_copy, and their dependents
     # ephemeral_copy should not actually be materialized b/c it is ephemeral
@@ -202,7 +204,8 @@ def test_simple_reference_with_models(project, create_tables):
     assert "materialized_copy" in created_tables
 
 
-def test_simple_reference_with_models_and_children(project, create_tables):
+def test_simple_reference_with_models_and_children(project):
+    create_tables(project.test_data_dir, project.test_schema)
 
     # Run materialized_copy, ephemeral_copy, and their dependents
     results = run_dbt(["run", "--models", "materialized_copy+", "ephemeral_copy+"])
