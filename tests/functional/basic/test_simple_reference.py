@@ -1,6 +1,6 @@
 import pytest
 import os
-from dbt.tests.util import run_dbt, run_sql_file
+from dbt.tests.util import run_dbt, run_sql_file, run_sql
 from dbt.tests.tables import TableComparison, get_tables_in_schema
 
 
@@ -187,7 +187,12 @@ def test_simple_reference(project):
 
 
 def test_simple_reference_with_models(project):
-    create_tables(project.test_data_dir, project.test_schema)
+    print(f"test with_models, test_schema: {project.test_schema}")
+    path = os.path.join(project.test_data_dir, "seed.sql")
+    sqlf = open(path, "r")
+    statements = sqlf.read().split(";")
+    for statement in statements:
+        run_sql(statement, project.test_schema)
 
     # Run materialized_copy, ephemeral_copy, and their dependents
     # ephemeral_copy should not actually be materialized b/c it is ephemeral

@@ -73,6 +73,7 @@ def run_sql(sql, unique_schema, fetch=None):
         "database": adapter.quote("dbt"),
     }
     sql = sql.format(**kwargs)
+    print(f"--- in run_sql. {sql}")
 
     # get adapter and connection
     with adapter.connection_named("__test"):
@@ -89,6 +90,7 @@ def run_sql(sql, unique_schema, fetch=None):
                 elif fetch == "all":
                     return cursor.fetchall()
                 else:
+                    print("--- returning from run_sql")
                     return
             except BaseException as e:
                 if conn.handle and not getattr(conn.handle, "closed", True):

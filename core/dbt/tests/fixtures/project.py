@@ -54,7 +54,9 @@ def database_host(scope="session"):
 
 @pytest.fixture
 def dbt_profile_data(unique_schema, database_host):
-
+    print(f"--- dbt_profile_data unique_schema: {unique_schema}")
+    dbname = os.getenv("POSTGRES_TEST_DATABASE", "dbt")
+    print(f"--- dbname: {dbname}")
     return {
         "config": {"send_anonymous_usage_stats": False},
         "test": {
@@ -66,7 +68,7 @@ def dbt_profile_data(unique_schema, database_host):
                     "port": int(os.getenv("POSTGRES_TEST_PORT", 5432)),
                     "user": os.getenv("POSTGRES_TEST_USER", "root"),
                     "pass": os.getenv("POSTGRES_TEST_PASS", "password"),
-                    "dbname": os.getenv("POSTGRES_TEST_DATABASE", "dbt"),
+                    "dbname": dbname,
                     "schema": unique_schema,
                 },
                 "other_schema": {
@@ -76,7 +78,7 @@ def dbt_profile_data(unique_schema, database_host):
                     "port": int(os.getenv("POSTGRES_TEST_PORT", 5432)),
                     "user": "noaccess",
                     "pass": "password",
-                    "dbname": os.getenv("POSTGRES_TEST_DATABASE", "dbt"),
+                    "dbname": dbname,
                     "schema": unique_schema + "_alt",  # Should this be the same unique_schema?
                 },
             },
@@ -303,4 +305,3 @@ def project(
     )
     yield project
     os.chdir(orig_cwd)
-
