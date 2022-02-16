@@ -37,18 +37,18 @@ def project_root(tmpdir):
 
 # This is for data used by multiple tests, in the 'tests/data' directory
 @pytest.fixture
-def shared_data_dir(request):
+def shared_data_dir(request, scope="session"):
     return os.path.join(request.config.rootdir, "tests", "data")
 
 
 # This for data for a specific test directory, i.e. tests/basic/data
 @pytest.fixture
-def test_data_dir(request):
+def test_data_dir(request, scope="module"):
     return os.path.join(request.fspath.dirname, "data")
 
 
 @pytest.fixture
-def database_host():
+def database_host(scope="session"):
     return os.environ.get("DOCKER_TEST_DATABASE_HOST", "localhost")
 
 
@@ -286,10 +286,11 @@ def project(
     logs_dir,
 ):
     setup_event_logger(logs_dir)
+    orig_cwd = os.getcwd()
     os.chdir(project_root)
     # Return whatever is needed later in tests but can only come from fixtures, so we can keep
     # the signatures in the test signature to a minimum.
-    return TestProjInfo(
+    project = TestProjInfo(
         project_root=project_root,
         profiles_dir=profiles_root,
         adapter=schema,
@@ -300,3 +301,6 @@ def project(
         # the following feels kind of fragile. TODO: better way of getting database
         database=profiles_yml["test"]["outputs"]["default"]["dbname"],
     )
+    yield project
+    os.chdir(orig_cwd)
+
