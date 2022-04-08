@@ -18,7 +18,6 @@
 - Allow unique_key to take a list ([#2479](https://github.com/dbt-labs/dbt-core/issues/2479), [#4618](https://github.com/dbt-labs/dbt-core/pull/4618))
 - Add `--quiet` global flag and `print` Jinja function ([#3451](https://github.com/dbt-labs/dbt-core/issues/3451), [#4701](https://github.com/dbt-labs/dbt-core/pull/4701))
 - Add space before justification periods ([#4737](https://github.com/dbt-labs/dbt-core/issues/4737), [#4744](https://github.com/dbt-labs/dbt-core/pull/4744))
-- Add `--no-print` global flag ([#4710](https://github.com/dbt-labs/dbt-core/issues/4710))
 ### Fixes
 - Fix bug causing empty node level meta, snapshot config errors ([#4459](https://github.com/dbt-labs/dbt-core/issues/4459), [#4726](https://github.com/dbt-labs/dbt-core/pull/4726))
 - Catch all Requests Exceptions on deps install to attempt retries.  Also log the exceptions hit. ([#4849](https://github.com/dbt-labs/dbt-core/issues/4849), [#4865](https://github.com/dbt-labs/dbt-core/pull/4865))
@@ -57,7 +56,6 @@
   - [@mdesmet](https://github.com/mdesmet) ([#4604](https://github.com/dbt-labs/dbt-core/pull/4604))
   - [@versusfacit](https://github.com/versusfacit) ([#4869](https://github.com/dbt-labs/dbt-core/pull/4869))
   - [@willbowditch](https://github.com/willbowditch) ([#4777](https://github.com/dbt-labs/dbt-core/pull/4777))
-  - [@poloaraujo](https://github.com/poloaraujo) ([#4854](https://github.com/dbt-labs/dbt-core/pull/4854))
 
 
 ## Previous Releases
