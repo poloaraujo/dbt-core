@@ -1,7 +1,7 @@
 kind: Features
-body: Add `--no-print` global flag ([#4710](https://github.com/dbt-labs/dbt-core/issues/4710))
+body: Add `--no-print` global flag
 time: 2022-04-08T11:41:18.934373+01:00
 custom:
-  Author: Add `--no-print` global flag
+  Author: poloaraujo
   Issue: "4710"
   PR: "4854"
